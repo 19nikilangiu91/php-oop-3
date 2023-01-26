@@ -48,14 +48,30 @@ class Stipendio
         $this->quattordicesima = $quattordicesima;
     }
 
+    // Creo la funzione "getAnnuale()" che mi restituisce lo stipendio annuale;
+    public function getAnnuale()
+    {
+        $annuale = $this->mensile * 12;
+        if ($this->tredicesima) {
+            $annuale = $annuale + $this->mensile;
+        }
+        if ($this->quattordicesima) {
+            $annuale = $annuale + $this->mensile;
+        }
+
+        return $annuale;
+    }
+
     public function getHtml()
     {
 
         return
             "<h2> Stipendio</h2>" .
             "Mensile: " . $this->getMensile() . "<br>" .
-            "Tredicesima: " . $this->getTredicesima() . "<br>" .
-            "Quattordicesima: " . $this->getQuattordicesima() . "<br>";
+            // Converto i valori all'interno di $stipendio per poi stamparli.
+            "Tredicesima: " . ($this->getTredicesima() ? "Si" : "No") . "<br>" .
+            "Quattordicesima: " . ($this->getQuattordicesima() ? "Si" : "No") . "<br>" .
+            "Annuale: " . $this->getAnnuale() . "<br>";
     }
 }
 class Persona
@@ -129,7 +145,6 @@ class Persona
     {
 
         return
-            "<h2> Persona </h2>" .
             "Nome: " . $this->getNome() . "<br>" .
             "Cognome: " . $this->getCognome() . "<br>" .
             "Data di Nascita: " . $this->getDataDiNascita() . "<br>" .
@@ -170,24 +185,29 @@ class Impiegato extends Persona
         $this->dataDiAssunzione = $dataDiAssunzione;
     }
 
+    // Creo una funzione "getSalarioAnnuale()" che restituisce lo stipendio annuale a partire dall'oggetto stipendio.
+
+    public function getSalarioAnnuale()
+    {
+        $this->stipendio->getAnnuale();
+    }
+
     public function getHtml()
     {
         return parent::getHtml()
-            . "<h2>Stipendio Impiegato</h2>"
-            . "Stipendio: " . $this->getStipendio()->getMensile() . "<br>"
+            . "Stipendio: " . $this->stipendio->getAnnuale() . "<br>"
             . "Data di Assunzione: " . $this->getDataDiAssunzione();
     }
 
 }
 
 
-$stipendio = new Stipendio(1000, "Si", "Si");
+$stipendio = new Stipendio(1000, true, false);
 $persona = new Persona("Mario", "Rossi", "1990-06-20", "Roma", "abcdefghi");
 
 $impiegato = new Impiegato("Mario", "Rossi", "1990-06-20", "Roma", "abcdefghi", $stipendio, "2021-02-10");
 
-echo $stipendio->getHtml();
-echo "<br>";
+echo "<h1>Impiegato</h1>";
 echo $impiegato->getHtml();
 echo "<br>---------------------------------------<br>";
 ?>
