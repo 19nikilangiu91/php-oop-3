@@ -152,7 +152,6 @@ class Persona
             "CF: " . $this->getCodiceFiscale() . "<br>";
     }
 }
-
 class Impiegato extends Persona
 {
     private $stipendio;
@@ -187,27 +186,84 @@ class Impiegato extends Persona
 
     // Creo una funzione "getSalarioAnnuale()" che restituisce lo stipendio annuale a partire dall'oggetto stipendio.
 
-    public function getSalarioAnnuale()
+    // public function getSalarioAnnuale()
+    // {
+    //     $this->stipendio->getAnnuale();
+    // }
+
+    public function getHtml()
     {
-        $this->stipendio->getAnnuale();
+        return parent::getHtml()
+            . "Stipendio: " . $this->getStipendio()->getAnnuale() . "<br>"
+            . "Data di Assunzione: " . $this->getDataDiAssunzione();
+    }
+
+}
+class Capo extends Persona
+{
+    private $dividendo;
+    private $bonus;
+
+    public function __construct($nome, $cognome, $dataDiNascita, $luogoDiNascita, $codiceFiscale, $dividendo, $bonus)
+    {
+        parent::__construct($nome, $cognome, $dataDiNascita, $luogoDiNascita, $codiceFiscale);
+        $this->setDividendo($dividendo);
+        $this->setBonus($bonus);
+    }
+
+    public function getDividendo()
+    {
+        return $this->dividendo;
+    }
+
+    public function setDividendo($dividendo)
+    {
+        $this->dividendo = $dividendo;
+    }
+
+    public function getBonus()
+    {
+        return $this->bonus;
+    }
+
+    public function setBonus($bonus)
+    {
+        $this->bonus = $bonus;
+    }
+
+    // Creo una funzione "getRedditoAnnuale()" che restituisce il reddito annuale.
+    public function getRedditoAnnuale()
+    {
+        return $this->dividendo * 12 + $this->bonus;
     }
 
     public function getHtml()
     {
         return parent::getHtml()
-            . "Stipendio: " . $this->stipendio->getAnnuale() . "<br>"
-            . "Data di Assunzione: " . $this->getDataDiAssunzione();
+            . "Dividendo: " . $this->getDividendo() . "<br>"
+            . "Bonus: " . $this->getBonus() . "<br>"
+            // Richiamo la funzione "getRedditoAnnuale()
+            . "Reddito Annuale: " . $this->getRedditoAnnuale() . '<br>';
     }
-
 }
 
 
-$stipendio = new Stipendio(1000, true, false);
-$persona = new Persona("Mario", "Rossi", "1990-06-20", "Roma", "abcdefghi");
+
+$stipendio = new Stipendio(2000, true, false);
+$persona1 = new Persona("Mario", "Rossi", "1990-06-20", "Roma", "abcdefghi");
+$persona2 = new Persona("Piero", "Costanzi", "1980-05-12", "Milano", "lmnopqrst");
 
 $impiegato = new Impiegato("Mario", "Rossi", "1990-06-20", "Roma", "abcdefghi", $stipendio, "2021-02-10");
+$capo = new Capo("Piero", "Costanzi", "1980-05-12", "Milano", "lmnopqrst", 25000, 12500);
 
+
+echo "<h1>Persona</h1>";
+echo $persona1->getHtml();
 echo "<h1>Impiegato</h1>";
 echo $impiegato->getHtml();
 echo "<br>---------------------------------------<br>";
+echo "<h1>Persona</h1>";
+echo $persona2->getHtml();
+echo "<h1>Capo</h1>";
+echo $capo->getHtml();
 ?>
