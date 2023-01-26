@@ -2,6 +2,61 @@
 
 // Stipendio, Persona
 // Capo, Impiegato ---> extends Persona
+
+class Stipendio
+{
+    private $mensile;
+
+    private $tredicesima;
+
+    private $quattordicesima;
+
+    public function __construct($mensile, $tredicesima, $quattordicesima)
+    {
+        $this->setMensile($mensile);
+        $this->setTredicesima($tredicesima);
+        $this->setQuattordicesima($quattordicesima);
+    }
+
+    public function getMensile()
+    {
+        return $this->mensile;
+    }
+
+    public function setMensile($mensile)
+    {
+        $this->mensile = $mensile;
+    }
+
+    public function getTredicesima()
+    {
+        return $this->tredicesima;
+    }
+
+    public function setTredicesima($tredicesima)
+    {
+        $this->tredicesima = $tredicesima;
+    }
+
+    public function getQuattordicesima()
+    {
+        return $this->quattordicesima;
+    }
+
+    public function setQuattordicesima($quattordicesima)
+    {
+        $this->quattordicesima = $quattordicesima;
+    }
+
+    public function getHtml()
+    {
+
+        return
+            "Mensile: " . $this->getMensile() . "<br>" .
+            "Tredicesima: " . $this->getTredicesima() . "<br>" .
+            "Quattordicesima: " . $this->getQuattordicesima() . "<br>";
+    }
+}
 class Persona
 {
     private $nome;
@@ -81,7 +136,10 @@ class Persona
     }
 }
 
+$stipendio = new Stipendio(1000, "Si", "Si");
 $persona = new Persona("Mario", "Rossi", "10-01-1990", "Roma", "abcdefghi");
 
+echo $stipendio->getHtml();
+echo "<br>";
 echo $persona->getHtml();
 ?>
