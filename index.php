@@ -172,14 +172,13 @@ class Impiegato extends Persona
 
     public function getHtml()
     {
-        return
-            "<h2>Stipendio Impiegato</h2>" .
-            "Stipendio: " . $this->getStipendio()->getMensile() . "<br>"
+        return parent::getHtml()
+            . "<h2>Stipendio Impiegato</h2>"
+            . "Stipendio: " . $this->getStipendio()->getMensile() . "<br>"
             . "Data di Assunzione: " . $this->getDataDiAssunzione();
     }
 
 }
-
 
 
 $stipendio = new Stipendio(1000, "Si", "Si");
@@ -188,8 +187,6 @@ $persona = new Persona("Mario", "Rossi", "1990-06-20", "Roma", "abcdefghi");
 $impiegato = new Impiegato("Mario", "Rossi", "1990-06-20", "Roma", "abcdefghi", $stipendio, "2021-02-10");
 
 echo $stipendio->getHtml();
-echo "<br>";
-echo $persona->getHtml();
 echo "<br>";
 echo $impiegato->getHtml();
 echo "<br>---------------------------------------<br>";
