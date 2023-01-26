@@ -52,6 +52,7 @@ class Stipendio
     {
 
         return
+            "<h2> Stipendio</h2>" .
             "Mensile: " . $this->getMensile() . "<br>" .
             "Tredicesima: " . $this->getTredicesima() . "<br>" .
             "Quattordicesima: " . $this->getQuattordicesima() . "<br>";
@@ -128,6 +129,7 @@ class Persona
     {
 
         return
+            "<h2> Persona </h2>" .
             "Nome: " . $this->getNome() . "<br>" .
             "Cognome: " . $this->getCognome() . "<br>" .
             "Data di Nascita: " . $this->getDataDiNascita() . "<br>" .
@@ -170,8 +172,9 @@ class Impiegato extends Persona
 
     public function getHtml()
     {
-        return parent::getHtml() . "<br>"
-            . "Stipendio: " . $this->getStipendio() . "<br>"
+        return
+            "<h2>Stipendio Impiegato</h2>" .
+            "Stipendio: " . $this->getStipendio()->getMensile() . "<br>"
             . "Data di Assunzione: " . $this->getDataDiAssunzione();
     }
 
@@ -189,4 +192,5 @@ echo "<br>";
 echo $persona->getHtml();
 echo "<br>";
 echo $impiegato->getHtml();
+echo "<br>---------------------------------------<br>";
 ?>
