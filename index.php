@@ -136,10 +136,57 @@ class Persona
     }
 }
 
+class Impiegato extends Persona
+{
+    private $stipendio;
+    private $dataDiAssunzione;
+
+    public function __construct($nome, $cognome, $dataDiNascita, $luogoDiNascita, $codiceFiscale, $stipendio, $dataDiAssunzione)
+    {
+        parent::__construct($nome, $cognome, $dataDiNascita, $luogoDiNascita, $codiceFiscale);
+        $this->setStipendio($stipendio);
+        $this->setDataDiAssunzione($dataDiAssunzione);
+    }
+
+    public function getStipendio()
+    {
+        return $this->stipendio;
+    }
+
+    public function setStipendio($stipendio)
+    {
+        $this->stipendio = $stipendio;
+    }
+
+    public function getDataDiAssunzione()
+    {
+        return $this->dataDiAssunzione;
+    }
+
+    public function setDataDiAssunzione($dataDiAssunzione)
+    {
+        $this->dataDiAssunzione = $dataDiAssunzione;
+    }
+
+    public function getHtml()
+    {
+        return parent::getHtml() . "<br>"
+            . "Stipendio: " . $this->getStipendio() . "<br>"
+            . "Data di Assunzione: " . $this->getDataDiAssunzione();
+    }
+
+}
+
+
+
 $stipendio = new Stipendio(1000, "Si", "Si");
-$persona = new Persona("Mario", "Rossi", "10-01-1990", "Roma", "abcdefghi");
+$persona = new Persona("Mario", "Rossi", "1990-06-20", "Roma", "abcdefghi");
+
+$impiegato = new Impiegato("Mario", "Rossi", "1990-06-20", "Roma", "abcdefghi", $stipendio, "2021-02-10");
 
 echo $stipendio->getHtml();
 echo "<br>";
 echo $persona->getHtml();
+echo "<br>";
+echo $impiegato->getHtml();
 ?>
