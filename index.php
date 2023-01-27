@@ -154,10 +154,10 @@ class Persona
 }
 class Impiegato extends Persona
 {
-    private $stipendio;
+    private Stipendio $stipendio;
     private $dataDiAssunzione;
 
-    public function __construct($nome, $cognome, $dataDiNascita, $luogoDiNascita, $codiceFiscale, $stipendio, $dataDiAssunzione)
+    public function __construct($nome, $cognome, $dataDiNascita, $luogoDiNascita, $codiceFiscale, Stipendio $stipendio, $dataDiAssunzione)
     {
         parent::__construct($nome, $cognome, $dataDiNascita, $luogoDiNascita, $codiceFiscale);
         $this->setStipendio($stipendio);
@@ -184,12 +184,12 @@ class Impiegato extends Persona
         $this->dataDiAssunzione = $dataDiAssunzione;
     }
 
-    // Creo una funzione "getSalarioAnnuale()" che restituisce lo stipendio annuale a partire dall'oggetto stipendio.
+    // Creo una funzione "getAnnuale()" che restituisce lo stipendio annuale a partire dall'oggetto stipendio.
 
-    // public function getSalarioAnnuale()
-    // {
-    //     $this->stipendio->getAnnuale();
-    // }
+    public function getAnnuale()
+    {
+        $this->getStipendio()->getAnnuale();
+    }
 
     public function getHtml()
     {
